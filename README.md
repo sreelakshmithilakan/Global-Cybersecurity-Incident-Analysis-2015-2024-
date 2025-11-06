@@ -9,6 +9,22 @@ It demonstrates end-to-end **data cleaning**, **feature engineering**, **visual 
 
 ---
 
+### 📁 Project Files
+
+**data/**
+- `Global_Cybersecurity_Threats.csv` — *Dataset used for analysis*
+
+**notebooks/**
+- `Global-Cybersecurity-Incident-Analysis.ipynb` — *Main Jupyter Notebook*
+
+**images/**
+- `Cybersecurity-project-images/` — *All visualizations generated during the analysis*
+
+**README.md**
+- *Project documentation you are currently reading*
+
+---
+
 ## 🎯 Objectives
 - Understand **which countries and industries** are most impacted.
 - Analyze the **most common attack types and exploited vulnerabilities**.
@@ -90,4 +106,5 @@ Comparing variables:
 | **Jupyter Notebook** | Analysis & Documentation |
 
 ---
+
 
