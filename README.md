@@ -83,6 +83,18 @@ Comparing variables:
 - Pre- vs Post-Pandemic shifts
 - Heatmaps & grouped plots across sectors
 
+### 4. **📈 Statistical Validation**
+
+To strengthen insights obtained during exploratory analysis, statistical tests were applied to evaluate whether observed relationships are statistically significant.
+
+| Relationship Tested | Method Used | Purpose |
+|--------------------|-------------|--------|
+| Year × Incident Count | Linear Regression | Evaluate whether cyber incidents show a statistically significant trend over time |
+| Attack Type × Financial Loss | ANOVA | Test whether financial losses differ significantly across attack types |
+| Affected Users × Financial Loss | Pearson Correlation | Examine whether incidents affecting more users tend to generate larger financial losses |
+
+These statistical tests complement the visual analysis and help distinguish observable patterns from statistically meaningful relationships.
+
 ---
 
 ## 🔍 Key Insights (Table Summary)
@@ -97,7 +109,9 @@ Comparing variables:
 | **Pandemic Shift** | **Incident frequency decreased**, but **impact severity increased**, due to rapid digital expansion and limited adaptation time. |
 
 ---
+
 ## Detailed Insights
+
 ## 🌍 **Global Threat Landscape**
 
 Cybersecurity risk is **global**, not concentrated in specific regions.  
@@ -187,14 +201,14 @@ Cybersecurity priorities shifted from **attack count** → to **impact control**
 ## 🌐 **One-Line Summary**
 **Modern cybersecurity focuses less on preventing attacks and more on minimizing impact when breaches occur.**
 
+---
 
 ## 🛠️ Tech Stack
 | Tool | Purpose |
 |------|---------|
 | **Python (Pandas, NumPy)** | Data Cleaning & Feature Engineering |
 | **Matplotlib / Plotly** | Data Visualization |
+| **SciPy 📈** | Statistical Validation (Regression, ANOVA, Correlation) |
 | **Jupyter Notebook** | Analysis & Documentation |
 
 ---
-
-
