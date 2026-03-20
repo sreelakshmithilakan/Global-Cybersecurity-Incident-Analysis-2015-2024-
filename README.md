@@ -203,6 +203,27 @@ Cybersecurity priorities shifted from **attack count** → to **impact control**
 
 ---
 
+---
+
+## 💼 Strategic Recommendations
+
+*Based on findings from this analysis — actionable directions for security and business teams.*
+
+**1. Prioritise patch management and phishing training over perimeter tools**
+Unpatched software and human behaviour account for the majority of exploited vulnerabilities in this dataset. Organisations investing heavily in firewalls while neglecting update cycles and employee training are addressing the symptom, not the cause. Automated patch scheduling and quarterly phishing simulation programmes would close the highest-volume attack vectors first.
+
+**2. Healthcare and Education sectors need dedicated cybersecurity budgets**
+These two industries show disproportionately high user exposure relative to their typical security investment. Healthcare's zero-downtime dependency makes it uniquely vulnerable to ransomware leverage. A minimum security baseline — including offline backups and access segmentation — should be treated as operational necessity, not optional spend.
+
+**3. Re-evaluate VPN-dependent remote access architecture**
+VPN and early AI detection systems showed the highest financial losses during the pandemic period, when remote work scaled rapidly. Organisations still relying primarily on VPN infrastructure should assess a Zero Trust Network Access (ZTNA) model, which limits lateral movement even after initial breach.
+
+**4. Shift incident response KPIs from frequency to severity**
+The era analysis shows incident frequency is stabilising, but impact severity remains the critical variable. Security teams should track **mean financial loss per incident** and **mean resolution time** as primary KPIs — not just total incident count — to reflect the modern threat landscape accurately.
+
+
+---
+
 ## 🛠️ Tech Stack
 | Tool | Purpose |
 |------|---------|
