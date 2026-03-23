@@ -1,235 +1,189 @@
-# Global Cybersecurity Incident Analysis (2015–2024)
-*Exploring Geographical, Industrial, Operational, and Temporal Risk Patterns in Global Cyber Attacks*
+# Global Cybersecurity Incident Analysis (2015-2024)
+
+> *Ten years of breach data. What actually drives cyber risk, and what doesn't.*
+
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter&logoColor=white)
+![Libraries](https://img.shields.io/badge/Pandas%20%7C%20NumPy%20%7C%20SciPy%20%7C%20Matplotlib%20%7C%20Plotly-informational)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
 
 ---
 
-## 📌 Project Overview  
-This project analyzes global cybersecurity incidents reported between **2015 and 2024** to identify **key risk patterns**, **attack trends**, and **defense effectiveness** across industries and countries.  
-It demonstrates end-to-end **data cleaning**, **feature engineering**, **visual exploration**, and **insight reporting** using Python.
+## The question this project answers
+
+When a country reports a lot of cyberattacks, does that mean its defenses are weak, or that it's more transparent? When ransomware spiked during the pandemic, was that about opportunity, desperation, or both? And which defense mechanisms actually hold up under pressure?
+
+This project works through 10 years of global cybersecurity incident data (2015-2024) to find out. It goes beyond counting attacks and uses statistical testing to separate real patterns from noise.
 
 ---
 
-### 📁 Project Files
+## What I found
 
-**data/**
-- `Global_Cybersecurity_Threats.csv` — *Dataset used for analysis*
+The most counterintuitive finding comes first, because it reframes everything else:
 
-**notebooks/**
-- `Global-Cybersecurity-Incident-Analysis.ipynb` — *Main Jupyter Notebook*
+**The pandemic did not cause more attacks. It made each one hurt more.**
 
-**images/**
-- `Cybersecurity-project-images/` — *All visualizations generated during the analysis*
+Incident frequency actually dropped during 2020-2021, but financial losses and user impact surged. Rapid remote-work expansion created new exposure faster than security teams could adapt. The chart below makes this visible:
 
-**README.md**
-- *Project documentation you are currently reading*
+![Incident Count Comparison by Era](Cybersecurity-project-images/05_univariate-analysis.png)
+
+Other findings that cut against the obvious:
+
+- **High incident counts can mean good transparency, not weak defense.** The UK, Brazil, Japan, and Australia report high volumes, but this reflects digital scale and open reporting norms, not vulnerability. The US and Germany show lower counts partly due to centralized monitoring and disclosure restrictions.
+
+![Distribution of Cyber Incidents by Country](Cybersecurity-project-images/01_univariate-analysis.png)
+
+- **VPNs, the pandemic-era default, were the biggest defense failure.** VPN-dependent setups showed the highest financial losses during the remote-work period. The line chart below tracks average financial loss by defense mechanism over time. The VPN spike around 2019-2020 stands out clearly.
+
+![Average Financial Loss by Defense Mechanism Over Time](Cybersecurity-project-images/12_multivariate-analysis.png)
+
+- **Most breaches still trace back to two things:** unpatched software and human behaviour (phishing, weak passwords). Not sophisticated attackers. Unglamorous causes with unglamorous fixes.
+
+![Relationship Between Attack Types and Security Vulnerabilities](Cybersecurity-project-images/09_bivariate-analysis.png)
+
+- **Ransomware exploded post-2020. SQL injection never went away.** SQL injection has been consistent for a decade. Ransomware surged after 2020, driven by remote operational pressure and the leverage it provides against zero-downtime industries like healthcare.
+
+![Evolution of Attack Landscape by Year and Attack Type](Cybersecurity-project-images/11_multivariate-analysis.png)
 
 ---
 
-## 🎯 Objectives
-- Understand **which countries and industries** are most impacted.
-- Analyze the **most common attack types and exploited vulnerabilities**.
-- Study relationships between **financial loss**, **user impact**, and **resolution time**.
-- Identify **effective defense mechanisms** and **post-pandemic shifts** in cyber threat patterns.
+## Dataset
 
----
-
-## 🗂️ Dataset Description
+`Global_Cybersecurity_Threats.csv` covering 2015-2024 across countries, industries, and attack types.
 
 | Column | Description |
-|-------|-------------|
-| Country | Location of the cybersecurity incident |
+|---|---|
+| Country | Where the incident occurred |
 | Year | Year of occurrence |
-| Attack Type | e.g., Malware, DDoS, Ransomware, Phishing |
-| Target Industry | e.g., Finance, Healthcare, IT, Retail |
+| Attack Type | Malware, DDoS, Ransomware, Phishing, SQL Injection, etc. |
+| Target Industry | Finance, Healthcare, IT, Retail, Education, etc. |
 | Financial Loss (Million $) | Estimated monetary impact |
-| Number of Affected Users | Total affected users |
-| Attack Source | Internal or External actor |
-| Security Vulnerability Type | Weak passwords, unpatched software, etc. |
-| Defense Mechanism Used | Mitigation strategy |
-| Incident Resolution Time (Hours) | Time required to resolve |
+| Number of Affected Users | Total users affected |
+| Attack Source | Internal or external |
+| Security Vulnerability Type | Weak passwords, unpatched software, social engineering, etc. |
+| Defense Mechanism Used | Firewall, VPN, AI detection, encryption, etc. |
+| Incident Resolution Time (Hours) | Time to contain and resolve |
 
-### 🔧 Derived Fields
-- **Era** → (Pre-Pandemic, Pandemic, Recovery, Recent)
-- **Resolution Bucket** → (≤24h, 24–72h, >72h)
-- **Loss per User** → Financial Loss ÷ Users Affected
+**Derived features engineered during analysis:**
 
----
-
-## 🧹 Data Preparation & Cleaning
-- Standardized categorical labels
-- Handled missing values and duplicates
-- Converted datatypes appropriately
-- Detected and adjusted outliers
-- Engineered new analytical variables (Era, Resolution Bucket, Loss per User)
+| Feature | Logic |
+|---|---|
+| Era | Pre-Pandemic / Pandemic / Recovery / Recent |
+| Resolution Bucket | 24h or less / 24-72h / over 72h |
+| Loss per User | Financial Loss divided by Affected Users |
 
 ---
 
-## 📊 Analysis Approach
+## Analysis approach
 
-### 1. **Univariate Analysis**
-Understanding distributions:
-- Top affected countries
-- Most targeted industries
-- Most common attack types
+The notebook works through four layers:
 
-### 2. **Bivariate Analysis**
-Comparing variables:
-- Loss by country & industry
-- Attack type vs vulnerability exploited
-- Defense mechanism effectiveness vs resolution time
+**1. Univariate** - distributions of attack types, targeted industries, and affected countries. Establishes what is common vs rare.
 
-### 3. **Multivariate & Trend Analysis**
-- Evolution of attacks from 2015–2024
-- Pre- vs Post-Pandemic shifts
-- Heatmaps & grouped plots across sectors
+**2. Bivariate** - relationships between variables: which attack types correlate with which vulnerabilities, how defense mechanisms relate to resolution time, financial loss by country and sector.
 
-### 4. **📈 Statistical Validation**
+![High Loss Regions](Cybersecurity-project-images/06_bivariate-analysis.png)
 
-To strengthen insights obtained during exploratory analysis, statistical tests were applied to evaluate whether observed relationships are statistically significant.
+**3. Temporal and multivariate** - evolution of threats from 2015-2024, pre vs post-pandemic comparison, heatmaps across sectors and geographies.
 
-| Relationship Tested | Method Used | Purpose |
-|--------------------|-------------|--------|
-| Year × Incident Count | Linear Regression | Evaluate whether cyber incidents show a statistically significant trend over time |
-| Attack Type × Financial Loss | ANOVA | Test whether financial losses differ significantly across attack types |
-| Affected Users × Financial Loss | Pearson Correlation | Examine whether incidents affecting more users tend to generate larger financial losses |
+![Evolution of User Impact Across Industries](Cybersecurity-project-images/08_bivariate-analysis.png)
 
-These statistical tests complement the visual analysis and help distinguish observable patterns from statistically meaningful relationships.
+![Comparison of Cyber Threats Before and After the Pandemic](Cybersecurity-project-images/10_multivariate-analysis.png)
+
+**4. Statistical validation** - three tests to confirm the patterns are real:
+
+| Test | Variables | Purpose |
+|---|---|---|
+| Linear Regression | Year vs Incident Count | Is the trend over time statistically significant? |
+| ANOVA | Attack Type vs Financial Loss | Do losses differ meaningfully across attack types? |
+| Pearson Correlation | Affected Users vs Financial Loss | Do larger-scale attacks actually cost more? |
+
+![Correlation Between Financial Loss, Affected Users, and Resolution Time](Cybersecurity-project-images/14_correlation-and-statistical-analysis.png)
 
 ---
 
-## 🔍 Key Insights (Table Summary)
+## Key findings by area
 
-| Insight Area | Summary |
-|-------------|-----------------|
-| **High-Risk Regions** | UK, Brazil, Japan, and Australia show **concentrated high-impact attack clusters**, while India and France show **moderate but steady exposure**. |
-| **Most Targeted Industries** | **IT, Banking, Healthcare, and Education** face highest risk due to **centralized identity/financial data and operational dependence**. |
-| **Dominant Attack Types** | **SQL Injection & Phishing** remain consistently prevalent; **Ransomware** increases significantly post-pandemic. **DDoS** remains stable but lower in share. |
-| **Primary Vulnerabilities** | **Unpatched software + human behavior** (phishing/social engineering) remain the most exploited weaknesses. |
-| **Defense Performance** | **Firewalls & Encryption** provide stable protection; **VPN and early AI-based systems struggled** during remote-work expansion. |
-| **Pandemic Shift** | **Incident frequency decreased**, but **impact severity increased**, due to rapid digital expansion and limited adaptation time. |
+### Who gets hit hardest
 
----
+IT, Banking, Healthcare, and Education face the highest exposure, all for the same reason: centralized, identity-linked data that is widely accessed. Healthcare is uniquely vulnerable to ransomware because of its zero-downtime dependency. Education tends to have large, distributed user bases with lower security budgets.
 
-## Detailed Insights
+![Incident Frequency Across Target Industries](Cybersecurity-project-images/03_univariate-analysis.png)
 
-## 🌍 **Global Threat Landscape**
+![User Exposure Across Industries](Cybersecurity-project-images/13_multivariate-analysis.png)
 
-Cybersecurity risk is **global**, not concentrated in specific regions.  
-Countries like **UK, Brazil, Japan, and Australia** report **higher visible incident volumes** due to **greater digital activity and transparent reporting**.  
-Meanwhile, **USA, Germany, and China** show **lower reported incidents** due to **centralized monitoring and restricted disclosure**.
+### What attackers actually exploit
 
-**Key Insight:**  
-Higher incident counts can reflect **digital scale and transparency**, not weaker defense.
+| Vulnerability | Primary attack vector |
+|---|---|
+| Unpatched software | Ransomware, MITM |
+| Weak or reused passwords | Botnet-driven DDoS |
+| Human trust via phishing | Credential theft, zero-day entry |
 
----
+The pattern: most breaches don't require sophisticated attackers. They require inattentive administrators and undertrained users.
 
-## 🎯 **Attack Type Patterns**
+### How defenses compare
 
-- **SQL Injection** and **Phishing** maintain consistent prevalence.
-- **Ransomware** shows a **major increase post-2020**, tied to remote operational pressure.
-- **DDoS** remains present but **stable at a lower share**.
+![Defense Effectiveness](Cybersecurity-project-images/07_bivariate-analysis.png)
 
-**Key Insight:**  
-Organizations need **multi-layered security**, not single-vector protection.
+| Mechanism | Performance | Notes |
+|---|---|---|
+| Firewalls and Encryption | Consistently effective | Strong perimeter and data-layer protection |
+| VPN and early AI detection | Poor during 2020-2021 | Overwhelmed by sudden scale of remote access |
+| Traditional antivirus | Declining | Ineffective against adaptive or novel threats |
 
----
+### Attack composition by sector
 
-## 🏦 **Industry Exposure**
+![Attack Composition by Sector](Cybersecurity-project-images/16_9-temporal-and-trend-analysis.png)
 
-Industries with **high-value or identity-linked data** face the greatest risk:
+### The pandemic era shift
 
-- **IT & Banking** → high-value centralized data  
-- **Healthcare** → **zero downtime tolerance** increases ransomware leverage  
-- **Education** → large user bases, distributed access, often **lower cybersecurity budgets**
+Frequency went down. Severity went up. As organizations digitized rapidly without adequate preparation, each incident that did occur had disproportionate impact. The recovery period (2022-2023) shows stabilization as security postures caught up.
 
-**Key Insight:**  
-Attackers focus on sectors where **data sensitivity and continuity** matter most.
+![Yearly Trend: Financial Loss and Affected Users 2015-2024](Cybersecurity-project-images/15_9-temporal-and-trend-analysis.png)
 
 ---
 
-## 🧬 **User Exposure Patterns**
+## Strategic recommendations
 
-User exposure is highest in **IT, Healthcare, Education, and Banking**, where data is:
+**1. Fix the basics before buying new tools.**
+Unpatched software and phishing account for the majority of successful breaches in this dataset. Automated patch scheduling and phishing simulation programmes close the highest-volume attack vectors faster than any perimeter tool.
 
-- **Centralized**
-- **Identity-linked**
-- **Widely accessed**
+**2. Healthcare and Education need dedicated security baselines.**
+Both sectors show high user exposure relative to typical security investment. For Healthcare especially, offline backups and access segmentation should be treated as operational requirements, not optional hardening.
 
-**Key Insight:**  
-Impact increases when data is **centralized and personally identifiable**.
+**3. Audit your VPN dependency.**
+VPN-first remote access failed under pandemic-era conditions. Organizations still relying primarily on VPN should evaluate Zero Trust Network Access (ZTNA), which limits lateral movement even after an initial breach.
 
----
-
-## 🔗 **Vulnerabilities and Exploitation**
-
-- **Phishing** → exploits **human trust + zero-day openings**
-- **Weak Passwords** → enable **botnet-driven DDoS**
-- **Unpatched Software** → drives **Ransomware & MITM attacks**
-
-**Key Insight:**  
-Most breaches result from **human factors and delayed updates**, not attacker sophistication.
+**4. Measure severity, not just frequency.**
+Incidents are stabilizing in count but not in impact. Security teams should track mean financial loss per incident and mean resolution time as primary KPIs, not total incident count, to accurately reflect the current threat landscape.
 
 ---
 
-## 🛡️ **Defense Mechanism Effectiveness**
+## Tech stack
 
-| Defense Approach | Reliability Trend | Notes |
-|-----------------|------------------|------|
-| **Firewalls & Encryption** | **Stable & effective** | Strong perimeter and data protection |
-| **VPN & Early AI Detection** | **High loss during pandemic** | Struggled under sudden remote expansion |
-| **Traditional Antivirus** | **Declining** | Less effective against adaptive threats |
-
-**Key Insight:**  
-Defense that **blocks or detects early** is more effective than **post-breach mitigation**.
+| Tool | Role |
+|---|---|
+| Python (Pandas, NumPy) | Data cleaning, feature engineering |
+| Matplotlib, Plotly | Visualizations |
+| SciPy | Statistical tests (regression, ANOVA, correlation) |
+| Jupyter Notebook | Analysis environment and documentation |
 
 ---
 
-## 🕒 **Era-Based Shift (2015–2025)**
+## Repository structure
 
-| Era | Frequency | Severity | Explanation |
-|-----|-----------|----------|-------------|
-| **Pre-Pandemic** | Higher | Moderate | Stable systems and predictable workflows |
-| **Pandemic (2020–2021)** | Lower | **High** | Rapid remote expansion → new vulnerabilities |
-| **Recovery (2022–2023)** | Stabilizing | Declining | Security adaptation period |
-| **Recent (2024–2025)** | Steady | Controlled | Matured cybersecurity posture |
-
-**Key Insight:**  
-Cybersecurity priorities shifted from **attack count** → to **impact control**.
+```
+├── Global-Cybersecurity-Incident-Analysis.ipynb
+├── Global_Cybersecurity_Threats.csv
+├── Cybersecurity-project-images/
+└── README.md
+```
 
 ---
 
-## 🌐 **One-Line Summary**
-**Modern cybersecurity focuses less on preventing attacks and more on minimizing impact when breaches occur.**
+## About
 
----
+I'm Sreelakshmi, a data analyst with a background in engineering and an MBA, focused on turning raw data into decisions. This project is part of a portfolio built around SQL analytics, Python-based EDA, and Power BI dashboards.
 
----
-
-## 💼 Strategic Recommendations
-
-*Based on findings from this analysis — actionable directions for security and business teams.*
-
-**1. Prioritise patch management and phishing training over perimeter tools**
-Unpatched software and human behaviour account for the majority of exploited vulnerabilities in this dataset. Organisations investing heavily in firewalls while neglecting update cycles and employee training are addressing the symptom, not the cause. Automated patch scheduling and quarterly phishing simulation programmes would close the highest-volume attack vectors first.
-
-**2. Healthcare and Education sectors need dedicated cybersecurity budgets**
-These two industries show disproportionately high user exposure relative to their typical security investment. Healthcare's zero-downtime dependency makes it uniquely vulnerable to ransomware leverage. A minimum security baseline — including offline backups and access segmentation — should be treated as operational necessity, not optional spend.
-
-**3. Re-evaluate VPN-dependent remote access architecture**
-VPN and early AI detection systems showed the highest financial losses during the pandemic period, when remote work scaled rapidly. Organisations still relying primarily on VPN infrastructure should assess a Zero Trust Network Access (ZTNA) model, which limits lateral movement even after initial breach.
-
-**4. Shift incident response KPIs from frequency to severity**
-The era analysis shows incident frequency is stabilising, but impact severity remains the critical variable. Security teams should track **mean financial loss per incident** and **mean resolution time** as primary KPIs — not just total incident count — to reflect the modern threat landscape accurately.
-
-
----
-
-## 🛠️ Tech Stack
-| Tool | Purpose |
-|------|---------|
-| **Python (Pandas, NumPy)** | Data Cleaning & Feature Engineering |
-| **Matplotlib / Plotly** | Data Visualization |
-| **SciPy 📈** | Statistical Validation (Regression, ANOVA, Correlation) |
-| **Jupyter Notebook** | Analysis & Documentation |
-
----
+[LinkedIn](https://www.linkedin.com/in/sreelakshmithilakan/) · [Notion Portfolio](https://www.notion.so/Sreelakshmi-Thilakan-Data-Stories-2bb3af78860580f49b1fd96f8153bb49)
